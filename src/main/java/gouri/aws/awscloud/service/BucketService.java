@@ -1,9 +1,7 @@
 package gouri.aws.awscloud.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BucketService {
@@ -23,6 +20,7 @@ public class BucketService {
     private AmazonS3 amazonS3;
     private FileStore fileStorage;
 
+
     public BucketService(AmazonS3 amazonS3, FileStore fileStorage) {
         this.amazonS3 = amazonS3;
         this.fileStorage = fileStorage;
@@ -30,16 +28,16 @@ public class BucketService {
 
 
     public void downloadFile(String fileName, AmazonS3 s3, String bucketName) {
-        try{
+        try {
             logger.info("file to be fetched from s3 {} " + fileName);
             S3Object s3Object = s3.getObject(bucketName, fileName);
             InputStream objectData = s3Object.getObjectContent();
-            String content  = IOUtils.toString(objectData);
+            String content = IOUtils.toString(objectData);
             logger.info("file content fetched from s3 {} " + content);
 
-        }catch (IOException e){
+        } catch (IOException e) {
             logger.error("Error in reading file content {} " + e.getMessage());
-        }catch (AmazonS3Exception s3Exception){
+        } catch (AmazonS3Exception s3Exception) {
             logger.error("Error occurred while downloading file from S3 bucket: " + s3Exception.getMessage());
         }
     }
@@ -57,10 +55,10 @@ public class BucketService {
     }
 
     public String uploadFile(MultipartFile file, String bucketName) {
-        if(file.isEmpty()){
+        if (file.isEmpty()) {
             throw new IllegalStateException("Cannot upload empty file");
         }
-        try{
+        try {
             fileStorage.uploadFileToBucket(file, bucketName);
         } catch (Exception e) {
             throw new IllegalStateException("Failed to upload file", e);
@@ -68,28 +66,77 @@ public class BucketService {
         return "File uploaded successfully.";
     }
 
-    public String deleteBucket(String bucketName){
+    public String deleteBucket(String bucketName) {
         fileStorage.deleteBucket(bucketName);
         return "Bucket and files deleted successfully.";
     }
 
-    public String deleteFile(String bucketName, String fileName){
+    public String deleteFile(String bucketName, String fileName) {
         fileStorage.deleteFile(bucketName, fileName);
         return "File deleted successfully.";
     }
 
-    public List<String> listBuckets(){
-        List<String> bucketNames = new ArrayList<>();
-        try{
+    public Map<String, List<String>> listBuckets() {
+//        List<List<String>> bucketNames = new ArrayList<>();
+//        List<String> files = new ArrayList<>();
+//        try{
+//            List<Bucket> buckets = amazonS3.listBuckets();
+//            for (Bucket b : buckets) {
+//                //bucketNames.add(b.getName());
+//
+//
+//                ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(b.getName());
+//                ListObjectsV2Result result;
+//
+//                do {
+//                    result = amazonS3.listObjectsV2(req);
+//
+//                    for (S3ObjectSummary summary : result.getObjectSummaries()) {
+//                        files.add(summary.getKey());
+//                    }
+//
+//                    req.setContinuationToken(result.getNextContinuationToken());
+//
+//                } while (result.isTruncated());
+//                bucketNames.add(files);
+//            }
+//            return bucketNames;
+//        }
+//        catch (AmazonS3Exception s3Exception){
+//            logger.error("Error occurred while listing buckets from S3: " + s3Exception.getMessage());
+//            return List.of();
+//        }
+
+        Map<String, List<String>> bucketFiles = new HashMap<>();
+
+        try {
             List<Bucket> buckets = amazonS3.listBuckets();
-            for (Bucket b : buckets) {
-                bucketNames.add(b.getName());
+
+            for (Bucket bucket : buckets) {
+                List<String> files = new ArrayList<>();
+
+                ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(bucket.getName());
+                ListObjectsV2Result result;
+
+                do {
+                    result = amazonS3.listObjectsV2(req);
+
+                    for (S3ObjectSummary summary : result.getObjectSummaries()) {
+                        files.add(summary.getKey());
+                    }
+
+                    req.setContinuationToken(result.getNextContinuationToken());
+
+                } while (result.isTruncated());
+
+                bucketFiles.put(bucket.getName(), files);
             }
-            return bucketNames;
-        }
-        catch (AmazonS3Exception s3Exception){
-            logger.error("Error occurred while listing buckets from S3: " + s3Exception.getMessage());
-            return List.of();
+
+            return bucketFiles;
+
+        } catch (AmazonS3Exception e) {
+            logger.error("Error occurred while listing S3 buckets: " + e.getMessage());
+            return Collections.emptyMap();
         }
     }
 }

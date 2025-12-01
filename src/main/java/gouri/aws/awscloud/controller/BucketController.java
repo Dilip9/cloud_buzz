@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/s3bucket")
@@ -48,7 +49,7 @@ public class BucketController {
     }
 
     @GetMapping("/show/buckets")
-    public ResponseEntity<List<String>> showAllBuckets(){
+    public ResponseEntity<Map<String, List<String>>> showAllBuckets(){
         return new ResponseEntity<>(service.listBuckets(),HttpStatus.OK);
     }
 
