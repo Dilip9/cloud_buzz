@@ -77,36 +77,6 @@ public class BucketService {
     }
 
     public Map<String, List<String>> listBuckets() {
-//        List<List<String>> bucketNames = new ArrayList<>();
-//        List<String> files = new ArrayList<>();
-//        try{
-//            List<Bucket> buckets = amazonS3.listBuckets();
-//            for (Bucket b : buckets) {
-//                //bucketNames.add(b.getName());
-//
-//
-//                ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(b.getName());
-//                ListObjectsV2Result result;
-//
-//                do {
-//                    result = amazonS3.listObjectsV2(req);
-//
-//                    for (S3ObjectSummary summary : result.getObjectSummaries()) {
-//                        files.add(summary.getKey());
-//                    }
-//
-//                    req.setContinuationToken(result.getNextContinuationToken());
-//
-//                } while (result.isTruncated());
-//                bucketNames.add(files);
-//            }
-//            return bucketNames;
-//        }
-//        catch (AmazonS3Exception s3Exception){
-//            logger.error("Error occurred while listing buckets from S3: " + s3Exception.getMessage());
-//            return List.of();
-//        }
-
         Map<String, List<String>> bucketFiles = new HashMap<>();
 
         try {

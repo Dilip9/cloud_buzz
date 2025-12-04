@@ -1,6 +1,11 @@
 package gouri.aws.awscloud.controller;
 
 import gouri.aws.awscloud.service.BucketService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
+
+@Tag(name = "Buckets", description = "Operations for S3 buckets")
 @RestController
 @RequestMapping("/v1/s3bucket")
 @CrossOrigin("*")
@@ -24,6 +31,11 @@ public class BucketController {
     }
 
 
+    @Operation(summary = "Create bucket", description = "Create a new S3 bucket")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Bucket created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
+    })
     @PostMapping("/add/{bucketName}")
     public ResponseEntity<String> createBucket(@PathVariable String bucketName){
         return new ResponseEntity<>(service.createBucket(bucketName),HttpStatus.OK);
