@@ -1,6 +1,7 @@
 package gouri.aws.awscloud.controller;
 
 import gouri.aws.awscloud.service.BucketService;
+import gouri.aws.awscloud.service.FileStoreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +24,7 @@ public class BucketController {
 
 
     private BucketService service;
+    private FileStoreService fileStorage;
 
     public BucketController(BucketService service) {
         this.service = service;
@@ -44,7 +46,7 @@ public class BucketController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file,
                                              @PathVariable String bucketName){
-        return new ResponseEntity<>(service.uploadFile(file, bucketName),HttpStatus.OK);
+        return new ResponseEntity<>(fileStorage.uploadFile(file, bucketName),HttpStatus.OK);
     }
 
     @Operation(summary = "List files based on buckets", description = "Returns a list of files")
@@ -55,7 +57,7 @@ public class BucketController {
     @DeleteMapping(path="/delete/file/{bucketName}/{fileName}")
     public ResponseEntity<String> deleteFile(@PathVariable String bucketName,@PathVariable String fileName)
     {
-        return new ResponseEntity<>(service.deleteFile(bucketName,fileName),HttpStatus.OK);
+        return new ResponseEntity<>(fileStorage.deleteFile(bucketName,fileName),HttpStatus.OK);
     }
 
     @Operation(summary = "Delete bucket", description = "Delete an existing bucket")
@@ -63,7 +65,7 @@ public class BucketController {
             @ApiResponse(responseCode = "204", description = "Deleted"),
             @ApiResponse(responseCode = "404", description = "Not found", content = @io.swagger.v3.oas.annotations.media.Content)
     })
-    @DeleteMapping(value = "/delete/bucket/{bucketName}")
+    @DeleteMapping(value = "/delete/bucket/{bucketName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteBucket(@PathVariable String bucketName) {
         return new ResponseEntity<>(service.deleteBucket(bucketName), HttpStatus.OK);
     }

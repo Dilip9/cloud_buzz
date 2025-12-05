@@ -3,11 +3,11 @@ package gouri.aws.awscloud.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
+import gouri.aws.awscloud.utils.AWSBucketConstant;
 import org.springframework.stereotype.Service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,12 +18,11 @@ public class BucketService {
 
     private Logger logger = LogManager.getLogger(this.getClass().getName());
     private AmazonS3 amazonS3;
-    private FileStore fileStorage;
 
 
-    public BucketService(AmazonS3 amazonS3, FileStore fileStorage) {
+
+    public BucketService(AmazonS3 amazonS3) {
         this.amazonS3 = amazonS3;
-        this.fileStorage = fileStorage;
     }
 
 
@@ -47,14 +46,14 @@ public class BucketService {
         try{
             if(bucketAlreadyExists(bucketName)) {
                 logger.info("Bucket name is not available. Try with a different Bucket name.");
-                return "Bucket name is not available. Try with a different Bucket name.";
+                return AWSBucketConstant.B_CODE_404;
             }
             amazonS3.createBucket(bucketName);
 
         }catch(AmazonS3Exception e) {
             logger.error("Unable to create bucket : " + e.getMessage());
         }
-        return "Bucket created with name : "+bucketName;
+        return AWSBucketConstant.B_CODE_201+bucketName;
     }
 
     private boolean bucketAlreadyExists(String bucketName) {
@@ -62,26 +61,26 @@ public class BucketService {
         return amazonS3.doesBucketExistV2(bucketName);
     }
 
-    public String uploadFile(MultipartFile file, String bucketName) {
-        if (file.isEmpty()) {
-            throw new IllegalStateException("Cannot upload empty file");
-        }
-        try {
-            fileStorage.uploadFileToBucket(file, bucketName);
-        } catch (Exception e) {
-            throw new IllegalStateException("Failed to upload file", e);
-        }
-        return "File uploaded successfully.";
-    }
+
 
     public String deleteBucket(String bucketName) {
-        fileStorage.deleteBucket(bucketName);
-        return "Bucket and files deleted successfully.";
-    }
+        // Check if the bucket is empty before deleting
+        ListObjectsRequest req = new ListObjectsRequest()
+                .withBucketName(bucketName)
+                .withMaxKeys(1);    // Only check first object
 
-    public String deleteFile(String bucketName, String fileName) {
-        fileStorage.deleteFile(bucketName, fileName);
-        return "File deleted successfully.";
+        ObjectListing listing = amazonS3.listObjects(req);
+
+        if(listing.getObjectSummaries().isEmpty()) {
+            logger.info("Bucket is empty, proceeding to delete: " + bucketName);
+            amazonS3.deleteBucket(bucketName);
+            return AWSBucketConstant.B_CODE_200;
+        } else {
+            logger.info("Bucket is not empty : " + bucketName);
+
+            return AWSBucketConstant.B_CODE_409;
+        }
+
     }
 
     public Map<String, List<String>> listBucketsWithFiles() {
