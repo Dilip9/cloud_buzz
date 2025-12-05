@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +34,9 @@ public class BucketController {
             @ApiResponse(responseCode = "201", description = "Bucket created"),
             @ApiResponse(responseCode = "400", description = "Invalid input", content = @io.swagger.v3.oas.annotations.media.Content)
     })
-    @PostMapping("/add/{bucketName}")
+    @PostMapping(value = "/add/{bucketName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createBucket(@PathVariable String bucketName){
-        return new ResponseEntity<>(service.createBucket(bucketName),HttpStatus.OK);
+        return new ResponseEntity<>(service.addBucket(bucketName),HttpStatus.OK);
     }
 
     @PostMapping(path = "/upload/file/{bucketName}",
@@ -64,7 +63,7 @@ public class BucketController {
             @ApiResponse(responseCode = "204", description = "Deleted"),
             @ApiResponse(responseCode = "404", description = "Not found", content = @io.swagger.v3.oas.annotations.media.Content)
     })
-    @DeleteMapping("/delete/bucket/{bucketName}")
+    @DeleteMapping(value = "/delete/bucket/{bucketName}")
     public ResponseEntity<String> deleteBucket(@PathVariable String bucketName) {
         return new ResponseEntity<>(service.deleteBucket(bucketName), HttpStatus.OK);
     }
@@ -74,9 +73,19 @@ public class BucketController {
             @ApiResponse(responseCode = "200", description = "List returned"),
             @ApiResponse(responseCode = "500", description = "Server error", content = @io.swagger.v3.oas.annotations.media.Content)
     })
-    @GetMapping("/show/buckets")
-    public ResponseEntity<Map<String, List<String>>> showAllBuckets(){
+    @GetMapping(value = "/show/all", produces = "application/json")
+    public ResponseEntity<Map<String, List<String>>> listBucketsWithFiles(){
+        return new ResponseEntity<>(service.listBucketsWithFiles(),HttpStatus.OK);
+    }
+
+    @GetMapping(value="/show/buckets")
+    public ResponseEntity<?> listBuckets(){
         return new ResponseEntity<>(service.listBuckets(),HttpStatus.OK);
+    }
+
+    @GetMapping(value="/show/objects/{bucketName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listObjectsInBucket(@PathVariable String bucketName){
+        return new ResponseEntity<>(service.listObjectsInBucket(bucketName),HttpStatus.OK);
     }
 
 }

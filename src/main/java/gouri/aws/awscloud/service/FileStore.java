@@ -42,24 +42,6 @@ public class FileStore {
         }
     }
 
-    public String createBucket(String bucketName) {
-        logger.info("Inside method createBucket");
-        try{
-            if(bucketAlreadyExists(bucketName)) {
-                logger.info("Bucket name is not available. Try with a different Bucket name.");
-                return "Bucket name is not available. Try with a different Bucket name.";
-            }
-            amazonS3.createBucket(bucketName);
 
-        }catch(AmazonS3Exception e) {
-            logger.error("Unable to create bucket : " + e.getMessage());
-        }
-        return "Bucket created with name : "+bucketName;
-    }
-
-    private boolean bucketAlreadyExists(String bucketName) {
-        logger.info("Inside method bucketAlreadyExists");
-        return amazonS3.doesBucketExistV2(bucketName);
-    }
 
 }

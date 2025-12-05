@@ -42,16 +42,24 @@ public class BucketService {
         }
     }
 
-    public String createBucket(String bucketName) {
-//        if (amazonS3.doesBucketExistV2(bucketName)) {
-//            logger.info("Bucket with name {} already exists.", bucketName);
-//            return "Bucket already exists.";
-//        } else {
-//            amazonS3.createBucket(bucketName);
-//            logger.info("Bucket with name {} created successfully.", bucketName);
-//            return "Bucket created successfully.";
-//        }
-        return fileStorage.createBucket(bucketName);
+    public String addBucket(String bucketName) {
+        logger.info("Inside method createBucket");
+        try{
+            if(bucketAlreadyExists(bucketName)) {
+                logger.info("Bucket name is not available. Try with a different Bucket name.");
+                return "Bucket name is not available. Try with a different Bucket name.";
+            }
+            amazonS3.createBucket(bucketName);
+
+        }catch(AmazonS3Exception e) {
+            logger.error("Unable to create bucket : " + e.getMessage());
+        }
+        return "Bucket created with name : "+bucketName;
+    }
+
+    private boolean bucketAlreadyExists(String bucketName) {
+        logger.info("Inside method bucketAlreadyExists");
+        return amazonS3.doesBucketExistV2(bucketName);
     }
 
     public String uploadFile(MultipartFile file, String bucketName) {
@@ -76,7 +84,7 @@ public class BucketService {
         return "File deleted successfully.";
     }
 
-    public Map<String, List<String>> listBuckets() {
+    public Map<String, List<String>> listBucketsWithFiles() {
         Map<String, List<String>> bucketFiles = new HashMap<>();
 
         try {
@@ -108,5 +116,14 @@ public class BucketService {
             logger.error("Error occurred while listing S3 buckets: " + e.getMessage());
             return Collections.emptyMap();
         }
+    }
+
+    public List<String> listBuckets(){
+        return amazonS3.listBuckets().stream().map(Bucket::getName).toList();
+    }
+
+    public List<String> listObjectsInBucket(String bucketName){
+        return amazonS3.listObjectsV2(bucketName).getObjectSummaries().stream().map(S3ObjectSummary::getKey).toList();
+
     }
 }
