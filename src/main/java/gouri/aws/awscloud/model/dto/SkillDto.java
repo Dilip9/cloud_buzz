@@ -7,14 +7,10 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EducationDTO {
+public class SkillDto {
 
     private Long id;
 
-    private String institution;
-    private String degree;
-    private String fieldOfStudy;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String name;
+    private String level;
 }
