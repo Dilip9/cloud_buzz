@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Project;
 import gouri.aws.awscloud.model.dto.request.ProjectCreateRequest;
 import gouri.aws.awscloud.model.dto.response.ProjectDto;
 import gouri.aws.awscloud.model.dto.update.ProjectUpdateRequest;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {

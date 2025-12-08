@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Education;
 import gouri.aws.awscloud.model.dto.request.EducationCreateRequest;
 import gouri.aws.awscloud.model.dto.response.EducationDto;
 import gouri.aws.awscloud.model.dto.update.EducationUpdateRequest;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface EducationMapper {

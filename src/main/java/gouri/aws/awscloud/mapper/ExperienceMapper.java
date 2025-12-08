@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Experience;
 import gouri.aws.awscloud.model.dto.request.ExperienceCreateRequest;
 import gouri.aws.awscloud.model.dto.response.ExperienceDto;
 import gouri.aws.awscloud.model.dto.update.ExperienceUpdateRequest;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface ExperienceMapper {

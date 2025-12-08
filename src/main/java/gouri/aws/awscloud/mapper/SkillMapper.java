@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Skill;
 import gouri.aws.awscloud.model.dto.SkillDto;
 import gouri.aws.awscloud.model.dto.request.SkillCreateRequest;
 import gouri.aws.awscloud.model.dto.update.SkillUpdateRequest;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface SkillMapper {

@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.ResumeCreateRequest;
 import gouri.aws.awscloud.model.dto.response.ResumeDto;
 import gouri.aws.awscloud.model.dto.update.ResumeUpdateRequest;
+import org.mapstruct.*;
 
 import java.util.List;
 

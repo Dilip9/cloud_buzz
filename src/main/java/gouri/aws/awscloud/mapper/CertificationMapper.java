@@ -5,6 +5,7 @@ import gouri.aws.awscloud.model.Certification;
 import gouri.aws.awscloud.model.dto.request.CertificationCreateRequest;
 import gouri.aws.awscloud.model.dto.response.CertificationDto;
 import gouri.aws.awscloud.model.dto.update.CertificationUpdateRequest;
+import org.mapstruct.*;
 
 
 @Mapper(componentModel = "spring")
