@@ -3,6 +3,7 @@ package gouri.aws.awscloud.r_controller;
 import gouri.aws.awscloud.model.dto.request.EducationCreateRequest;
 import gouri.aws.awscloud.model.dto.update.EducationUpdateRequest;
 import gouri.aws.awscloud.r_service.EducationService;
+import gouri.aws.awscloud.utils.ApiResponse;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

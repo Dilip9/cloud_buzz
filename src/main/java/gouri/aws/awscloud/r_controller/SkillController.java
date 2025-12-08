@@ -3,6 +3,7 @@ package gouri.aws.awscloud.r_controller;
 import gouri.aws.awscloud.model.dto.request.SkillCreateRequest;
 import gouri.aws.awscloud.model.dto.update.SkillUpdateRequest;
 import gouri.aws.awscloud.r_service.SkillService;
+import gouri.aws.awscloud.utils.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
