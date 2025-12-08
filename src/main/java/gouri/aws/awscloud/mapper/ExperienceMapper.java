@@ -1,6 +1,11 @@
 package gouri.aws.awscloud.mapper;
 
 
+import gouri.aws.awscloud.model.Experience;
+import gouri.aws.awscloud.model.dto.request.ExperienceCreateRequest;
+import gouri.aws.awscloud.model.dto.response.ExperienceDto;
+import gouri.aws.awscloud.model.dto.update.ExperienceUpdateRequest;
+
 @Mapper(componentModel = "spring")
 public interface ExperienceMapper {
 
@@ -10,7 +15,7 @@ public interface ExperienceMapper {
     Experience toEntity(ExperienceCreateRequest request);
 
     // Entity → DTO
-    ExperienceDTO toDTO(Experience experience);
+    ExperienceDto toDTO(Experience experience);
 
     // Update mapper
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

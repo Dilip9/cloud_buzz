@@ -1,6 +1,11 @@
 package gouri.aws.awscloud.mapper;
 
 
+import gouri.aws.awscloud.model.Project;
+import gouri.aws.awscloud.model.dto.request.ProjectCreateRequest;
+import gouri.aws.awscloud.model.dto.response.ProjectDto;
+import gouri.aws.awscloud.model.dto.update.ProjectUpdateRequest;
+
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
 
@@ -8,7 +13,7 @@ public interface ProjectMapper {
     @Mapping(target = "resume", ignore = true)
     Project toEntity(ProjectCreateRequest request);
 
-    ProjectDTO toDTO(Project project);
+    ProjectDto toDTO(Project project);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateProject(ProjectUpdateRequest request, @MappingTarget Project entity);

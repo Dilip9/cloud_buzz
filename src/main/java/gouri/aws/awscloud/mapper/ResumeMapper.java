@@ -1,6 +1,11 @@
 package gouri.aws.awscloud.mapper;
 
 
+import gouri.aws.awscloud.model.Resume;
+import gouri.aws.awscloud.model.dto.request.ResumeCreateRequest;
+import gouri.aws.awscloud.model.dto.response.ResumeDto;
+import gouri.aws.awscloud.model.dto.update.ResumeUpdateRequest;
+
 import java.util.List;
 
 @Mapper(
@@ -22,9 +27,9 @@ public interface ResumeMapper {
     Resume toEntity(ResumeCreateRequest request);
 
     // Entity → DTO
-    ResumeDTO toDTO(Resume resume);
+    ResumeDto toDTO(Resume resume);
 
-    List<ResumeDTO> toDTOList(List<Resume> resumes);
+    List<ResumeDto> toDTOList(List<Resume> resumes);
 
     // Update existing entity (PATCH / PUT)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -1,6 +1,11 @@
 package gouri.aws.awscloud.mapper;
 
 
+import gouri.aws.awscloud.model.Education;
+import gouri.aws.awscloud.model.dto.request.EducationCreateRequest;
+import gouri.aws.awscloud.model.dto.response.EducationDto;
+import gouri.aws.awscloud.model.dto.update.EducationUpdateRequest;
+
 @Mapper(componentModel = "spring")
 public interface EducationMapper {
 
@@ -8,7 +13,7 @@ public interface EducationMapper {
     @Mapping(target = "resume", ignore = true)
     Education toEntity(EducationCreateRequest request);
 
-    EducationDTO toDTO(Education education);
+    EducationDto toDTO(Education education);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEducation(EducationUpdateRequest request, @MappingTarget Education entity);
