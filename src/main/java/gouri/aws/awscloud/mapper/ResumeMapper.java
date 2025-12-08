@@ -1,7 +1,6 @@
 package gouri.aws.awscloud.mapper;
 
 
-import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(
