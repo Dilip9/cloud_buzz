@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.controller;
+package gouri.aws.awscloud.r_controller;
 
 public class CertificationController {
 }
