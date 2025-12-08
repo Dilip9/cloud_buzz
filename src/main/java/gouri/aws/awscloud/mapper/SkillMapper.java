@@ -2,7 +2,7 @@ package gouri.aws.awscloud.mapper;
 
 
 import gouri.aws.awscloud.model.Skill;
-import gouri.aws.awscloud.model.dto.SkillDto;
+import gouri.aws.awscloud.model.dto.response.SkillDTO;
 import gouri.aws.awscloud.model.dto.request.SkillCreateRequest;
 import gouri.aws.awscloud.model.dto.update.SkillUpdateRequest;
 import org.mapstruct.*;
@@ -14,7 +14,7 @@ public interface SkillMapper {
     @Mapping(target = "resume", ignore = true)
     Skill toEntity(SkillCreateRequest request);
 
-    SkillDto toDTO(Skill skill);
+    SkillDTO toDTO(Skill skill);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateSkill(SkillUpdateRequest request, @MappingTarget Skill entity);

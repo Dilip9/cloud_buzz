@@ -1,13 +1,12 @@
-package gouri.aws.awscloud.model.dto;
+package gouri.aws.awscloud.model.dto.response;
 
 import lombok.*;
-import java.time.LocalDate;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SkillDto {
+public class SkillDTO {
 
     private Long id;
 
