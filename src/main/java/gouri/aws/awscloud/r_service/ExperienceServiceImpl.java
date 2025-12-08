@@ -4,7 +4,7 @@ import gouri.aws.awscloud.mapper.ExperienceMapper;
 import gouri.aws.awscloud.model.Experience;
 import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.ExperienceCreateRequest;
-import gouri.aws.awscloud.model.dto.response.ExperienceDto;
+import gouri.aws.awscloud.model.dto.response.ExperienceDTO;
 import gouri.aws.awscloud.model.dto.update.ExperienceUpdateRequest;
 import gouri.aws.awscloud.repository.ExperienceRepository;
 import gouri.aws.awscloud.repository.ResumeRepository;
@@ -21,7 +21,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     private final ExperienceMapper experienceMapper;
 
     @Override
-    public ExperienceDto add(Long resumeId, ExperienceCreateRequest request) {
+    public ExperienceDTO add(Long resumeId, ExperienceCreateRequest request) {
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new EntityNotFoundException("Resume not found"));
 
@@ -32,7 +32,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public ExperienceDto update(Long id, ExperienceUpdateRequest request) {
+    public ExperienceDTO update(Long id, ExperienceUpdateRequest request) {
         Experience experience = experienceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Experience not found"));
 

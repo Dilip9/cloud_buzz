@@ -3,7 +3,7 @@ package gouri.aws.awscloud.mapper;
 
 import gouri.aws.awscloud.model.Certification;
 import gouri.aws.awscloud.model.dto.request.CertificationCreateRequest;
-import gouri.aws.awscloud.model.dto.response.CertificationDto;
+import gouri.aws.awscloud.model.dto.response.CertificationDTO;
 import gouri.aws.awscloud.model.dto.update.CertificationUpdateRequest;
 import org.mapstruct.*;
 
@@ -15,7 +15,7 @@ public interface CertificationMapper {
     @Mapping(target = "resume", ignore = true)
     Certification toEntity(CertificationCreateRequest request);
 
-    CertificationDto toDTO(Certification certification);
+    CertificationDTO toDTO(Certification certification);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateCertification(CertificationUpdateRequest request, @MappingTarget Certification entity);
