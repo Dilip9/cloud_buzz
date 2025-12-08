@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CertificationDto {
+public class CertificationDTO {
 
     private Long id;
 

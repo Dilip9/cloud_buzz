@@ -9,15 +9,16 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EducationDto {
+public class ExperienceDTO {
 
     private Long id;
 
-    private String institution;
-    private String degree;
-    private String fieldOfStudy;
+    private String companyName;
+    private String jobTitle;
 
     private LocalDate startDate;
     private LocalDate endDate;
+
+    private String description;
 }
 
