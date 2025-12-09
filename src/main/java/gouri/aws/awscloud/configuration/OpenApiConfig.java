@@ -2,8 +2,8 @@
 package gouri.aws.awscloud.configuration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springdoc.core.GroupedOpenApi;
+//import org.springframework.context.annotation.Configuration;
+//import org.springdoc.core.GroupedOpenApi;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -15,6 +15,7 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
@@ -55,11 +56,11 @@ public class OpenApiConfig {
                 .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME));
     }
 
-    @Bean
-    public GroupedOpenApi awscloudApi() {
-        return GroupedOpenApi.builder()
-                .group("awscloud")
-                .packagesToScan("gouri.aws.awscloud.controller")
-                .build();
-    }
+//    @Bean
+//    public GroupedOpenApi awscloudApi() {
+//        return GroupedOpenApi.builder()
+//                .group("awscloud")
+//                .packagesToScan("gouri.aws.awscloud.controller")
+//                .build();
+//    }
 }

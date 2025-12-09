@@ -1,4 +1,15 @@
 package gouri.aws.awscloud.configuration;
 
-public class WebConfig {
+import gouri.aws.awscloud.interceptor.LoggingInterceptor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.*;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoggingInterceptor());
+    }
 }
+

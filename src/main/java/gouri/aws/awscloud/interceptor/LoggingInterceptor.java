@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.configuration;
+package gouri.aws.awscloud.interceptor;
 
 import jakarta.servlet.http.*;
 import lombok.extern.slf4j.Slf4j;
