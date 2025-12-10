@@ -1,6 +1,6 @@
 package gouri.aws.awscloud.model.dto.response;
 
-import gouri.aws.awscloud.model.dto.EducationDTO;
+
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
