@@ -1,5 +1,6 @@
 package gouri.aws.awscloud.model.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.*;
 import jakarta.validation.constraints.*;
@@ -9,6 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Request body for creating a new Resume")
 public class ResumeCreateRequest {
 
     @NotBlank(message = "Resume title is required")
