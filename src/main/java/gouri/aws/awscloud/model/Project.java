@@ -20,7 +20,7 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String technologies;  // Comma-separated or list
+    private String technologies;
 
     @ManyToOne
     @JoinColumn(name = "resume_id")
