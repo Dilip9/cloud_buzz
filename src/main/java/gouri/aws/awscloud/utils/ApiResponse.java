@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatusCode;
 
 @Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse<T> {
