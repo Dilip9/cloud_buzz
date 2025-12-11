@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.r_service;
+package gouri.aws.awscloud.r_service.impl;
 
 import gouri.aws.awscloud.mapper.EducationMapper;
 import gouri.aws.awscloud.model.Education;
@@ -6,6 +6,7 @@ import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.EducationCreateRequest;
 import gouri.aws.awscloud.model.dto.response.EducationDTO;
 import gouri.aws.awscloud.model.dto.update.EducationUpdateRequest;
+import gouri.aws.awscloud.r_service.EducationService;
 import gouri.aws.awscloud.repository.EducationRepository;
 import gouri.aws.awscloud.repository.ResumeRepository;
 import jakarta.persistence.EntityNotFoundException;

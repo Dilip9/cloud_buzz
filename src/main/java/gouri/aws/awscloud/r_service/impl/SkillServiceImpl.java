@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.r_service;
+package gouri.aws.awscloud.r_service.impl;
 
 import gouri.aws.awscloud.mapper.SkillMapper;
 import gouri.aws.awscloud.model.Resume;
@@ -6,6 +6,7 @@ import gouri.aws.awscloud.model.Skill;
 import gouri.aws.awscloud.model.dto.request.SkillCreateRequest;
 import gouri.aws.awscloud.model.dto.response.SkillDTO;
 import gouri.aws.awscloud.model.dto.update.SkillUpdateRequest;
+import gouri.aws.awscloud.r_service.SkillService;
 import gouri.aws.awscloud.repository.ResumeRepository;
 import gouri.aws.awscloud.repository.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;

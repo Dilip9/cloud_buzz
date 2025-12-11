@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.r_service;
+package gouri.aws.awscloud.r_service.impl;
 
 import gouri.aws.awscloud.mapper.CertificationMapper;
 import gouri.aws.awscloud.model.Certification;
@@ -6,6 +6,7 @@ import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.CertificationCreateRequest;
 import gouri.aws.awscloud.model.dto.response.CertificationDTO;
 import gouri.aws.awscloud.model.dto.update.CertificationUpdateRequest;
+import gouri.aws.awscloud.r_service.CertificationService;
 import gouri.aws.awscloud.repository.CertificationRepository;
 import gouri.aws.awscloud.repository.ResumeRepository;
 import jakarta.persistence.EntityNotFoundException;

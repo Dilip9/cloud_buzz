@@ -1,4 +1,4 @@
-package gouri.aws.awscloud.r_service;
+package gouri.aws.awscloud.r_service.impl;
 
 import gouri.aws.awscloud.mapper.ProjectMapper;
 import gouri.aws.awscloud.model.Project;
@@ -6,6 +6,7 @@ import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.ProjectCreateRequest;
 import gouri.aws.awscloud.model.dto.response.ProjectDTO;
 import gouri.aws.awscloud.model.dto.update.ProjectUpdateRequest;
+import gouri.aws.awscloud.r_service.ProjectService;
 import gouri.aws.awscloud.repository.ProjectRepository;
 import gouri.aws.awscloud.repository.ResumeRepository;
 import jakarta.persistence.EntityNotFoundException;

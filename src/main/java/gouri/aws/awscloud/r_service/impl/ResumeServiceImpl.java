@@ -1,10 +1,11 @@
-package gouri.aws.awscloud.r_service;
+package gouri.aws.awscloud.r_service.impl;
 
 import gouri.aws.awscloud.mapper.ResumeMapper;
 import gouri.aws.awscloud.model.Resume;
 import gouri.aws.awscloud.model.dto.request.ResumeCreateRequest;
 import gouri.aws.awscloud.model.dto.response.ResumeDTO;
 import gouri.aws.awscloud.model.dto.update.ResumeUpdateRequest;
+import gouri.aws.awscloud.r_service.ResumeService;
 import gouri.aws.awscloud.repository.ResumeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
